@@ -9,7 +9,7 @@ const initialState: NewPost = {
 
 export function CreatePost() {
   const [isHidden, setIsHidden] = useState(true);
-  const [newPost, setNewPost] = useState<NewPost>(initialState);
+  const [newPost, setNewPost] = useState(initialState);
   const postTypes = POST_TYPES;
 
   const handleToggleCreatePost = () => {
@@ -28,7 +28,7 @@ export function CreatePost() {
       | React.ChangeEvent<HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
-    setNewPost((prev: NewPost) => ({
+    setNewPost((prev) => ({
       ...prev,
       [name]: value,
     }));
