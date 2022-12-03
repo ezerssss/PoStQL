@@ -1,46 +1,33 @@
 import React, { useState } from "react";
+import { POST_TYPES } from "../constants/constant";
+import { NewPost } from "../interfaces/interface";
 
-type NewPost = {
-  titleDescription: string;
-  type: string;
-};
-
-const iniState = {
-  titleDescription: "",
+const initialState: NewPost = {
+  text: "",
   type: "Life",
 };
 
-export const CreatePost = () => {
-  const POST_TYPES = ["Life", "Job", "Joke", "Animals", "Food"];
+export function CreatePost() {
   const [isHidden, setIsHidden] = useState(true);
-  const [newPost, setNewPost] = useState<NewPost>(iniState);
-
-  const isEmpty = (str: string) => {
-    const length = str.trim().length;
-    return length < 1;
-  };
+  const [newPost, setNewPost] = useState<NewPost>(initialState);
+  const postTypes = POST_TYPES;
 
   const handleToggleCreatePost = () => {
     setIsHidden((prev) => !prev);
   };
 
-  const handleOnSubmit = (e: any) => {
+  const handleOnSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (isEmpty(newPost.titleDescription)) {
-      return;
-    }
     handleToggleCreatePost();
-    //POST to DB
-    //axios.post(url, {newPost})
-    console.log(`Submitted ${JSON.stringify(newPost)}`);
-    alert("Posted Successfully");
-
-    //setStates back to initals
-    setNewPost(iniState);
+    setNewPost(initialState);
   };
 
-  const handleOnChange = (e: any) => {
-    const { name, value, style } = e.target;
+  const handleOnChange = (
+    e:
+      | React.ChangeEvent<HTMLTextAreaElement>
+      | React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    const { name, value } = e.target;
     setNewPost((prev: NewPost) => ({
       ...prev,
       [name]: value,
@@ -70,7 +57,7 @@ export const CreatePost = () => {
           </div>
           <div>
             <select name="type" value={newPost.type} onChange={handleOnChange}>
-              {POST_TYPES.map((type) => (
+              {postTypes.map((type) => (
                 <option value={type} key={type}>
                   {type}
                 </option>
@@ -80,9 +67,9 @@ export const CreatePost = () => {
 
           <div>
             <textarea
-              name="titleDescription"
+              name="text"
               onChange={handleOnChange}
-              value={newPost.titleDescription}
+              value={newPost.text}
               placeholder="Write something to post..."
               className={`h-40 w-full outline-0 resize-y overflow-auto border bg-transparent rounded-md`}
             ></textarea>
@@ -91,7 +78,7 @@ export const CreatePost = () => {
           <button
             className=" w-full bg-blue-500 disabled:bg-slate-300 disabled:cursor-not-allowed"
             type="submit"
-            disabled={isEmpty(newPost.titleDescription)}
+            disabled={!newPost.text.trim()}
           >
             Post
           </button>
@@ -99,4 +86,4 @@ export const CreatePost = () => {
       </div>
     </div>
   );
-};
+}
