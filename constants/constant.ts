@@ -1,1 +1,1 @@
-export const POST_TYPES = ["Life", "Job", "Joke", "Animals", "Food"];
+export const POST_TYPES = ['Life', 'Job', 'Joke', 'Animals', 'Food'];
