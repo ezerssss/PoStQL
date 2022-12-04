@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { POST_TYPES } from '../constants/constant';
-import { NewPost } from '../interfaces/interface';
+import { POST_TYPES } from '../constants/postType';
+import { NewPost } from '../interfaces/post';
 
 const initialState: NewPost = {
-    text: '',
+    content: '',
     type: 'Life',
 };
 
@@ -76,7 +76,7 @@ export function CreatePost() {
                         <textarea
                             name="text"
                             onChange={handleOnChange}
-                            value={newPost.text}
+                            value={newPost.content}
                             placeholder="Write something to post..."
                             className={`h-40 w-full outline-0 resize-y overflow-auto border bg-transparent rounded-md`}
                         ></textarea>
@@ -85,7 +85,7 @@ export function CreatePost() {
                     <button
                         className=" w-full bg-blue-500 disabled:bg-slate-300 disabled:cursor-not-allowed"
                         type="submit"
-                        disabled={!newPost.text.trim()}
+                        disabled={!newPost.content.trim()}
                     >
                         Post
                     </button>

@@ -1,8 +1,8 @@
 export interface NewPost {
-    text: string;
+    content: string;
     type: string;
 }
 
 export interface Post extends NewPost {
-    date: number;
+    date: Date;
 }
