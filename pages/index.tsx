@@ -1,6 +1,4 @@
 import Head from 'next/head';
-import { CreatePost } from '../components/CreatePost';
-import { PostCards } from '../components/PostCards';
 export default function Home() {
     return (
         <div>
