@@ -7,7 +7,7 @@ import { Post } from '../../interfaces/post';
 
 async function get(req: NextApiRequest, res: NextApiResponse<GetAPI>) {
     try {
-        const { page, type, order = 'ASC' } = req.query;
+        const { page, type, order = 'DESC' } = req.query;
         let offset = 0;
         if (page && typeof page === 'string') {
             offset = (parseInt(page) - 1) * POSTS_PER_PAGE;
