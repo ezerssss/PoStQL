@@ -8,7 +8,9 @@ export default async function handler(
     res: NextApiResponse<PostTypeAPI>,
 ) {
     try {
-        const types = (await db.query('SELECT * FROM post_type')) as PostType[];
+        const types: PostType[] = await db.query('SELECT * FROM post_type');
+        await db.end();
+
         res.status(StatusCodes.OK).json({ types });
     } catch (error) {
         console.error(error);

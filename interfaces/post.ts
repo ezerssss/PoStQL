@@ -1,8 +1,12 @@
-export interface NewPost {
+interface BasePost {
     content: string;
-    type: string;
 }
 
-export interface Post extends NewPost {
+export interface Post extends BasePost {
+    type: string;
     date: Date;
+}
+
+export interface NewPost extends BasePost {
+    post_type_id: number;
 }
