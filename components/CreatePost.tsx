@@ -73,7 +73,7 @@ export function CreatePost() {
             <div
                 className={`${
                     isHidden && 'hidden'
-                } relative m-auto mt-5 w-80 max-w-[95%] bg-gray-100 p-5 rounded-xl border`}
+                } relative m-auto mt-5 w-80 max-w-[95%] bg-gray-100 p-5 rounded-xl border-2`}
             >
                 <h2 className="font-bold text-lg mb-2">Create post</h2>
                 <button
@@ -82,7 +82,7 @@ export function CreatePost() {
                 />
                 <form onSubmit={handleOnSubmit}>
                     <select
-                        className="p-1 rounded-xl outline-none"
+                        className="p-1 rounded-xl outline-none border"
                         name="post_type_id"
                         value={newPost.post_type_id}
                         onChange={handleOnChange}
@@ -94,15 +94,13 @@ export function CreatePost() {
                         ))}
                     </select>
 
-                    <div>
-                        <textarea
-                            name="content"
-                            onChange={handleOnChange}
-                            value={newPost.content}
-                            placeholder="Write something to post..."
-                            className="h-40 w-full outline-0 border bg-transparent rounded-md p-2 mt-5"
-                        ></textarea>
-                    </div>
+                    <textarea
+                        name="content"
+                        onChange={handleOnChange}
+                        value={newPost.content}
+                        placeholder="Write something to post..."
+                        className="h-40 w-full outline-0 border bg-transparent rounded-md p-2 mt-5"
+                    />
 
                     <button
                         className="w-full py-2 bg-green-400 disabled:bg-slate-300 mt-4 rounded-xl"
