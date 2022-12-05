@@ -30,7 +30,7 @@ async function get(req: NextApiRequest, res: NextApiResponse<GetAPI>) {
         const rowCount: RowCount[] = await db.query(
             'SELECT COUNT(*) as count FROM posts',
         );
-        const pages = Math.floor(rowCount[0].count / POSTS_PER_PAGE);
+        const pages = Math.ceil(rowCount[0].count / POSTS_PER_PAGE);
 
         await db.end();
 
