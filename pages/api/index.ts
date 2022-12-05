@@ -20,12 +20,12 @@ async function get(req: NextApiRequest, res: NextApiResponse<GetAPI>) {
             hasTypes = true;
         }
 
-        const response = (await db.query(
+        const response: Post[] = await db.query(
             `SELECT content, date, name AS type FROM posts LEFT JOIN post_type USING (post_type_id) WHERE name ${
                 !hasTypes ? 'NOT' : ''
             } IN (?) ORDER BY date ${order} LIMIT ?, ${POSTS_PER_PAGE}`,
             [types, offset],
-        )) as Post[];
+        );
         await db.end();
 
         const posts = response.map(({ content, type, date }) => ({
@@ -55,10 +55,10 @@ async function post(req: NextApiRequest, res: NextApiResponse<PostAPI>) {
             content = content.slice(0, 2000);
         }
 
-        const result = (await db.query(
+        const result: PostType[] = await db.query(
             'SELECT post_type_id FROM post_type pt WHERE pt.post_type_id = ?',
             [post_type_id],
-        )) as PostType[];
+        );
         if (!result.length) {
             return res.status(StatusCodes.BAD_REQUEST).json({
                 msg: 'Post type id not found.',
@@ -69,6 +69,7 @@ async function post(req: NextApiRequest, res: NextApiResponse<PostAPI>) {
             'INSERT INTO posts (post_type_id, content) VALUES (?, ?)',
             [post_type_id, content],
         );
+        await db.end();
 
         res.status(StatusCodes.CREATED).json({ msg: 'Successfully posted' });
     } catch (error) {

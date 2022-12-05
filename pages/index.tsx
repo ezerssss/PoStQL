@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import { CreatePost } from '../components/CreatePost';
 export default function Home() {
     return (
         <div>
@@ -10,7 +11,7 @@ export default function Home() {
                 />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <h1 className="text-xl">Hello world</h1>
+            <CreatePost />
         </div>
     );
 }
