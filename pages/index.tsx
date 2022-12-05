@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import { CreatePost } from '../components/CreatePost';
-import { PostCards } from '../components/PostCards';
+import { PostList } from '../components/PostList';
 export default function Home() {
     return (
         <div>
@@ -13,7 +13,7 @@ export default function Home() {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <CreatePost />
-            <PostCards />
+            <PostList />
         </div>
     );
 }

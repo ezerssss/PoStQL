@@ -1,4 +1,5 @@
 import React from 'react';
+import { dateFormatter } from '../helpers/date';
 import { Post } from '../interfaces/post';
 
 interface PropsInterface {
@@ -6,15 +7,6 @@ interface PropsInterface {
 }
 
 export function PostCard({ post }: PropsInterface) {
-    function dateFormatter(postDate: Date): string {
-        const date = new Date(postDate);
-        const dd = date.getDate();
-        const mm = date.getMonth() + 1;
-        const yyyy = date.getFullYear();
-
-        return `${mm < 10 ? '0' + mm : mm}/${dd < 10 ? '0' + dd : dd}/${yyyy}`;
-    }
-
     return (
         <div className=" bg-gray-200 rounded-xl px-8 py-4">
             <div className=" text-center">
