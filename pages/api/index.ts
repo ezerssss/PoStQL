@@ -2,12 +2,12 @@ import { StatusCodes } from 'http-status-codes';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { POSTS_PER_PAGE } from '../../constants/page';
 import db from '../../db/db';
-import { GetAPI, PostAPI, PostType } from '../../interfaces/api';
+import { GetAPI, PostAPI, PostType, RowCount } from '../../interfaces/api';
 import { Post } from '../../interfaces/post';
 
 async function get(req: NextApiRequest, res: NextApiResponse<GetAPI>) {
     try {
-        const { page, type, order = 'ASC' } = req.query;
+        const { page, type, order = 'DESC' } = req.query;
         let offset = 0;
         if (page && typeof page === 'string') {
             offset = (parseInt(page) - 1) * POSTS_PER_PAGE;
@@ -26,6 +26,12 @@ async function get(req: NextApiRequest, res: NextApiResponse<GetAPI>) {
             } IN (?) ORDER BY date ${order} LIMIT ?, ${POSTS_PER_PAGE}`,
             [types, offset],
         );
+
+        const rowCount: RowCount[] = await db.query(
+            'SELECT COUNT(*) as count FROM posts',
+        );
+        const pages = Math.ceil(rowCount[0].count / POSTS_PER_PAGE);
+
         await db.end();
 
         const posts = response.map(({ content, type, date }) => ({
@@ -34,10 +40,13 @@ async function get(req: NextApiRequest, res: NextApiResponse<GetAPI>) {
             date,
         }));
 
-        res.status(StatusCodes.OK).json({ posts });
+        res.status(StatusCodes.OK).json({ posts, pages });
     } catch (error) {
         console.error(error);
-        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ posts: [] });
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+            posts: [],
+            pages: 0,
+        });
     }
 }
 

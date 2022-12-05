@@ -6,6 +6,7 @@ export interface PostAPI {
 
 export interface GetAPI {
     posts: Post[];
+    pages: number;
 }
 
 export interface PostType {
@@ -15,4 +16,8 @@ export interface PostType {
 
 export interface PostTypeAPI {
     types: PostType[];
+}
+
+export interface RowCount {
+    count: number;
 }

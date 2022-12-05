@@ -1,11 +1,14 @@
+function integerPrecision(number: number, precision: number) {
+    return `${number < 10 ? '0' : ''}${number}`;
+}
+
 export function dateFormatter(postDate: Date): string {
     const date = new Date(postDate);
-    const dd = date.getDate();
-    const mm = date.getMonth() + 1;
-    const yyyy = date.getFullYear();
+    const year = date.getFullYear();
+    const month = integerPrecision(date.getMonth() + 1, 2);
+    const day = integerPrecision(date.getDate(), 2);
+    const hours = integerPrecision(date.getHours(), 2);
+    const minutes = integerPrecision(date.getMinutes(), 2);
 
-    const displayMonth = `${mm < 10 ? '0' + mm : mm}`;
-    const displayDay = `${dd < 10 ? '0' + dd : dd}`;
-
-    return `${displayMonth}/${displayDay}/${yyyy}`;
+    return `${month}/${day}/${year} - ${hours}:${minutes}`;
 }
