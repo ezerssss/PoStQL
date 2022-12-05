@@ -1,11 +1,11 @@
 import React from 'react';
 import { Post } from '../interfaces/post';
 
-interface IPostProps {
+interface PropsInterface {
     post: Post;
 }
 
-export function PostCard({ post }: IPostProps) {
+export function PostCard({ post }: PropsInterface) {
     function dateFormatter(postDate: Date): string {
         const date = new Date(postDate);
         const dd = date.getDate();
